@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
@@ -41,19 +42,21 @@ public class Aplication {
 								.sorted((x,y) -> x.toUpperCase().compareTo(y.toUpperCase()))
 								.collect(Collectors.toList());
 			
-			System.out.println("Email of people whose salary is more than 2000.00:");
+			System.out.println("Email of people whose salary is more than " + String.format("%.2f" , salary) + ":");
 			emails.forEach(x -> System.out.println(x));
 			
-			double avg = list.stream()
+			double sum = list.stream()
 							.filter(x -> x.getName().charAt(0) == 'M')
 							.map(x -> x.getSalary())
 							.reduce(0.0, (x,y) -> x + y);							 
 			
-			System.out.print("Sum of salary of people whose name starts with 'M': " + String.format("%.2f", avg));
+			System.out.print("Sum of salary of people whose name starts with 'M': " + String.format("%.2f", sum));
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InputMismatchException e) {
 			e.printStackTrace();
 		}
 		sc.close();
